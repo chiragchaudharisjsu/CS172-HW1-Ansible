@@ -1,0 +1,9 @@
+---
+- hosts: webapps
+  become: true
+
+  tasks:
+    - name: stop httpd webapp
+      service:
+        name: httpd
+        state: stopped

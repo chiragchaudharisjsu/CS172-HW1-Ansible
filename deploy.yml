@@ -1,0 +1,22 @@
+---
+- hosts: webapps
+  become: true
+  tasks:
+    - name: install apache packages
+      yum:
+        name: httpd
+        state: present
+
+    - name: install firewalld
+      yum:
+        name: firewalld
+        state: present
+
+    - name: opening port 80 with firewalld
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: transfer index file
+      template: src=index.html dest=/var/www/html/index.html
